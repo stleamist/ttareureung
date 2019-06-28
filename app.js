@@ -23,7 +23,12 @@ app.set('json spaces', 2)
 // MARK: 라우터 설정
 app.use('/stations', stationsRouter)
 
+// MARK: 모듈 내보내기
+module.exports = app
+
 // MARK: 서버 실행
-app.listen(config.port, () => {
-	console.log(`Ttareureung running on port ${config.port}`)
-})
+if (!process.env.GCLOUD_PROJECT && !process.env.GCP_PROJECT) {
+	app.listen(config.port, () => {
+		console.log(`Ttareureung running on port ${config.port}`)
+	})
+}
